@@ -19,7 +19,8 @@ public class ImageModelAssembler implements RepresentationModelAssembler<Image, 
                 linkTo(methodOn(ImageController.class).getImageById(image.getImageId())).withSelfRel(),
                 linkTo(methodOn(ImageController.class).getImages()).withRel("images"),
                 linkTo(methodOn(ImageController.class).getImageByIdGame(image.getImageId())).withRel("game"),
-                linkTo(methodOn(ResourcesController.class).getImage(image.getImageType(), image.getImageFormat(), image.getImageName())).withRel("resource")
+                //linkTo(methodOn(ResourcesController.class).getImage(image.getImageType(), image.getImageFormat(), image.getImageName())).withRel("resource")
+                linkTo("https://games-runner-media.s3.us-east-2.amazonaws.com/"+image.getImageType()+"/"+ image.getImageName() +"." + image.getImageFormat()).withRel("resource")
         );
     }
 }
