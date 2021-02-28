@@ -47,36 +47,43 @@ public class GameController {
         return gameService.getGameById(id);
     }
 
+    @CrossOrigin
     @GetMapping("/games/{id}/videos")
     public CollectionModel<EntityModel<Video>> getGameVideos(@PathVariable Long id){
         return videoService.getVideosByGameId(id);
     }
 
+    @CrossOrigin
     @GetMapping("/games/{id}/images")
     public CollectionModel<EntityModel<Image>> getGameImages(@PathVariable Long id){
         return imageService.getImagesByGameId(id);
     }
 
+    @CrossOrigin
     @GetMapping("/games/{id}/screenshots")
     public CollectionModel<EntityModel<Image>> getGameScreenshots(@PathVariable Long id){
         return imageService.getScreenshotsByGameId(id);
     }
 
+    @CrossOrigin
     @GetMapping("/games/{id}/title")
     public EntityModel<Image> getGameTitle(@PathVariable Long id){
         return imageService.getTitleByGameId(id);
     }
 
+    @CrossOrigin
     @GetMapping("/games/{id}/poster")
     public EntityModel<Image> getGamePoster(@PathVariable Long id){
         return imageService.getPosterByGameId(id);
     }
 
+    @CrossOrigin
     @GetMapping("/games/{id}/franchise")
     public CollectionModel<EntityModel<Game>> getGameFranchise(@PathVariable Long id){
         return gameService.getGamesFromFranchiseByGameId(id);
     }
 
+    @CrossOrigin
     @GetMapping("/games/{id}/persons")
     public CollectionModel<EntityModel<Person>> getGamePersons(@PathVariable Long id){
         return personService.getPersonsByGameId(id);

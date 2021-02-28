@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "https://games-runner-front-end.herokuapp.com/")
+//@CrossOrigin(origins = "https://games-runner-front-end.herokuapp.com/")
 public class VideoController {
     @Autowired
     VideoService videoService;
@@ -20,16 +20,19 @@ public class VideoController {
     @Autowired
     GameService gameService;
 
+    @CrossOrigin
     @GetMapping("/videos")
     public CollectionModel<EntityModel<Video>> getVideos(){
         return videoService.getVideos();
     }
 
+    @CrossOrigin
     @GetMapping("/videos/{id}")
     public EntityModel<Video> getVideoById(@PathVariable Long id){
         return videoService.getVideoById(id);
     }
 
+    @CrossOrigin
     @GetMapping("/videos/{id}/game")
     public EntityModel<Game> getVideoByIdGame(@PathVariable Long id){
         return gameService.getGameByVideoId(id);
