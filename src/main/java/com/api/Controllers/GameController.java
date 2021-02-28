@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 //@CrossOrigin(origins = "https://games-runner-front-end.herokuapp.com/")
 
-
-
 @CrossOrigin(origins = "https://games-runner-front-end.herokuapp.com/")
 public class GameController {
 
