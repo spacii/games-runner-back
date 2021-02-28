@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "https://games-runner-front-end.herokuapp.com/")
-
-@CrossOrigin(origins = "https://games-runner-front-end.herokuapp.com/")
+//@CrossOrigin(origins = "https://games-runner-front-end.herokuapp.com/")
 public class GameController {
 
     Logger logger = LoggerFactory.getLogger(GameController.class);
@@ -36,11 +35,13 @@ public class GameController {
     @Autowired
     PersonService personService;
 
+    @CrossOrigin
     @GetMapping("/games")
     public CollectionModel<EntityModel<Game>> getGames(){
        return gameService.getGames();
     }
 
+    @CrossOrigin
     @GetMapping("/games/{id}")
     public EntityModel<Game> getGameById(@PathVariable Long id){
         return gameService.getGameById(id);
