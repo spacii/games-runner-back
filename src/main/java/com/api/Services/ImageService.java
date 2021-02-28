@@ -3,6 +3,7 @@ package com.api.Services;
 import com.api.Controllers.GameController;
 import com.api.Controllers.ImageController;
 import com.api.Entities.Image;
+import com.api.Exceptions.NotFoundException;
 import com.api.ModelAssemblers.ImageModelAssembler;
 import com.api.Repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ImageService {
     }
 
     public EntityModel<Image> getImageById(Long id){
-        Image image = imageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("fuck"));
+        Image image = imageRepository.findById(id).orElseThrow(() -> new NotFoundException("image", id));
         return imageModelAssembler.toModel(image);
     }
 

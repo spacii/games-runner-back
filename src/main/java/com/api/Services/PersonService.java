@@ -3,6 +3,7 @@ package com.api.Services;
 import com.api.Controllers.GameController;
 import com.api.Controllers.PersonContoller;
 import com.api.Entities.Person;
+import com.api.Exceptions.NotFoundException;
 import com.api.ModelAssemblers.GameModelAssembler;
 import com.api.ModelAssemblers.PersonModelAssembler;
 import com.api.Repositories.PersonRepository;
@@ -42,7 +43,7 @@ public class PersonService {
     }
 
     public EntityModel<Person> getPersonById(Long id){
-        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("fuck"));
+        Person person = personRepository.findById(id).orElseThrow(() -> new NotFoundException("person", id));
         return personModelAssembler.toModel(person);
     }
 
@@ -57,18 +58,4 @@ public class PersonService {
                 linkTo(methodOn(GameController.class).getGamePersons(id)).withSelfRel()
         );
     }
-
-//    public CollectionModel<EntityModel<Game>> getGamesByPersonId(Long id){
-//        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("fuck"));
-//
-//        List<EntityModel<Game>> games = person.getGames()
-//                .stream()
-//                .map(gameModelAssembler::toModel)
-//                .collect(Collectors.toList());
-//
-//        return CollectionModel.of(
-//                games,
-//                linkTo(methodOn(PersonContoller.class).getPersons()).withSelfRel()
-//        );
-//    }
 }

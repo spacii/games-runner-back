@@ -2,6 +2,7 @@ package com.api.Services;
 
 import com.api.Controllers.FranchiseContoller;
 import com.api.Entities.Franchise;
+import com.api.Exceptions.NotFoundException;
 import com.api.ModelAssemblers.FranchiseModelAssembler;
 import com.api.Repositories.FranchiseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class FranchiseService {
     }
 
     public EntityModel<Franchise> getFranchiseById(Long id){
-        Franchise franchise = franchiseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("fuck"));
+        Franchise franchise = franchiseRepository.findById(id).orElseThrow(() -> new NotFoundException("franchise", id));
         return franchiseModelAssembler.toModel(franchise);
     }
 

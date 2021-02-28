@@ -2,7 +2,7 @@ package com.api.Services;
 
 import com.api.Controllers.GameController;
 import com.api.Entities.Game;
-import com.api.Exceptions.GameNotFoundException;
+import com.api.Exceptions.NotFoundException;
 import com.api.ModelAssemblers.GameModelAssembler;
 import com.api.Repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,7 @@ public class GameService {
     }
 
     public EntityModel<Game> getGameById(Long id){
-        //Game game = gameRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("fuck"));
-        Game game = gameRepository.findById(id).orElseThrow(() -> new GameNotFoundException(id));
+        Game game = gameRepository.findById(id).orElseThrow(() -> new NotFoundException("game", id));
         return gameModelAssembler.toModel(game);
     }
 

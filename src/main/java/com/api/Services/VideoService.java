@@ -3,6 +3,7 @@ package com.api.Services;
 import com.api.Controllers.GameController;
 import com.api.Controllers.VideoController;
 import com.api.Entities.Video;
+import com.api.Exceptions.NotFoundException;
 import com.api.ModelAssemblers.VideoModelAssembler;
 import com.api.Repositories.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class VideoService {
     }
 
     public EntityModel<Video> getVideoById(Long id){
-        Video video = videoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("fuck"));
+        Video video = videoRepository.findById(id).orElseThrow(() -> new NotFoundException("video", id));
         return videoModelAssembler.toModel(video);
     }
 
