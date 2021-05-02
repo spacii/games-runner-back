@@ -62,4 +62,9 @@ public class GameService {
                 linkTo(methodOn(GameController.class).getGames()).withSelfRel()
         );
     }
+
+    public EntityModel<Game> getGameByScore(Long id){
+        Game game = gameRepository.findByScoresScoreId(id);
+        return gameModelAssembler.toModel(game);
+    }
 }

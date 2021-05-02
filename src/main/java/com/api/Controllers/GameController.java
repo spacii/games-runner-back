@@ -1,9 +1,6 @@
 package com.api.Controllers;
 
-import com.api.Entities.Game;
-import com.api.Entities.Image;
-import com.api.Entities.Person;
-import com.api.Entities.Video;
+import com.api.Entities.*;
 import com.api.Services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +29,9 @@ public class GameController {
 
     @Autowired
     PersonService personService;
+
+    @Autowired
+    ScoreService scoreService;
 
     @CrossOrigin
     @GetMapping("/games")
@@ -85,5 +85,11 @@ public class GameController {
     @GetMapping("/games/{id}/persons")
     public CollectionModel<EntityModel<Person>> getGamePersons(@PathVariable Long id){
         return personService.getPersonsByGameId(id);
+    }
+
+    @CrossOrigin
+    @GetMapping("/game/{id}/scores")
+    public CollectionModel<EntityModel<Score>> getGameScores(@PathVariable Long id){
+        return scoreService.getScoresByGameId(id);
     }
 }

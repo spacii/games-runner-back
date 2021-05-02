@@ -11,4 +11,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     Game findByVideosVideoId(Long id);
     Game findByImagesImageId(Long id);
     List<Game> findAllByFranchiseGameGameIdAndGameIdNot(Long id, Long id2);
+    Game findByScoresScoreId(Long id);
 }

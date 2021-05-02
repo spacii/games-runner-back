@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
 @Repository
-@CrossOrigin(origins = "http://localhost:3000")
-//@RepositoryRestResource(collectionResourceRel = "videos", path = "videos")
 public interface VideoRepository extends JpaRepository<Video, Long> {
     List<Video> findAllByGameGameId(Long id);
 }

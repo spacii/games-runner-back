@@ -16,6 +16,8 @@ public class Game {
     private String gameDescriptionFull;
     private String gameYear;
     private String age;
+    @Transient
+    private Float rating;
 
     //@JsonManagedReference
     @JsonIgnore
@@ -63,6 +65,9 @@ public class Game {
     @ManyToOne
     @JoinColumn(name = "game_franchise_id")
     private Franchise franchise;
+
+    @OneToMany(mappedBy = "game")
+    private List<Score> scores;
 
     public Game() {
     }
@@ -122,6 +127,14 @@ public class Game {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 
     public List<Video> getVideos() {
