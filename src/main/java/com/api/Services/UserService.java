@@ -40,7 +40,7 @@ public class UserService {
         return userModelAssembler.toModel(user);
     }
 
-    public EntityModel<User> addNewUser(User newUser){
+    public EntityModel<User> addUser(User newUser){
         User user = userRepository.save(newUser);
         return  userModelAssembler.toModel(user);
     }

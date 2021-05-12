@@ -5,18 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "scores")
-public class Score {
+@Table(name = "Reviews")
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long scoreId;
-
-//    @Column(name = "game_id")
-//    private Long gameId;
-
-//    @Column(name = "user_id")
-//    private Long userId;
-    private Integer score;
+    private Long reviewId;
+    private String reviewText;
 
     @ManyToOne
     @JoinColumn(name = "game_id")
@@ -28,27 +22,27 @@ public class Score {
     @JsonIgnore
     private User user;
 
-    public Score(){}
+    public Review(){}
 
-    public Score(Long scoreId, Integer score) {
-        this.scoreId = scoreId;
-        this.score = score;
+    public Review(Long reviewId, String reviewText) {
+        this.reviewId = reviewId;
+        this.reviewText = reviewText;
     }
 
-    public Long getScoreId() {
-        return scoreId;
+    public Long getReviewId() {
+        return reviewId;
     }
 
-    public void setScoreId(Long scoreId) {
-        this.scoreId = scoreId;
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
     }
 
-    public Integer getScore() {
-        return score;
+    public String getReviewText() {
+        return reviewText;
     }
 
-    public void setScore(Integer score) {
-        this.score = score;
+    public void setReviewText(String reviewText) {
+        this.reviewText = reviewText;
     }
 
     public Game getGame() {

@@ -16,6 +16,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Score> scores;
 
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
+
     public User(){}
 
     public User(Long userId, String userLogin, String userPassword, String userEmail) {
@@ -55,5 +58,21 @@ public class User {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

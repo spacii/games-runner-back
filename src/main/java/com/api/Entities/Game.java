@@ -10,6 +10,7 @@ import java.util.List;
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "game_id")
     private Long gameId;
     private String gameName;
     private String gameDescription;
@@ -67,7 +68,12 @@ public class Game {
     private Franchise franchise;
 
     @OneToMany(mappedBy = "game")
+//    @OneToMany
+//    @JoinColumn(name = "game_id", referencedColumnName = "game_id")
     private List<Score> scores;
+
+    @OneToMany(mappedBy = "game")
+    private List<Review> reviews;
 
     public Game() {
     }
@@ -191,5 +197,21 @@ public class Game {
 
     public void setPersons(List<Person> persons) {
         this.persons = persons;
+    }
+
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

@@ -1,7 +1,6 @@
 package com.api.ModelAssemblers;
 
-import com.api.Controllers.UserController;
-import com.api.Entities.User;
+import com.api.Entities.Review;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
@@ -10,13 +9,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class UserModelAssembler implements RepresentationModelAssembler<User, EntityModel<User>> {
+public class ReviewModelAssembler implements RepresentationModelAssembler<Review, EntityModel<Review>> {
     @Override
-    public EntityModel<User> toModel(User user) {
+    public EntityModel<Review> toModel(Review review) {
         return EntityModel.of(
-                user,
-                linkTo(methodOn(UserController.class).getUsers()).withRel("users"),
-                linkTo(methodOn(UserController.class).getUserScores(user.getUserId())).withRel("scores")
+                review//
         );
     }
 }

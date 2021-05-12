@@ -1,6 +1,8 @@
 package com.api.Controllers;
 
+import com.api.Entities.Score;
 import com.api.Entities.User;
+import com.api.Services.ScoreService;
 import com.api.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -13,6 +15,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ScoreService scoreService;
 
     @CrossOrigin
     @GetMapping("/users")
@@ -28,7 +33,13 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping("/users")
-    public EntityModel<User> addNewUser(@RequestBody User newUser){
-        return userService.addNewUser(newUser);
+    public EntityModel<User> addUser(@RequestBody User newUser){
+        return userService.addUser(newUser);
+    }
+
+    @CrossOrigin
+    @GetMapping("/users/{id}/scores")
+    public CollectionModel<EntityModel<Score>> getUserScores(@PathVariable Long id){
+        return scoreService.getScoresByUserId(id);
     }
 }

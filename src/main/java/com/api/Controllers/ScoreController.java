@@ -30,6 +30,12 @@ public class ScoreController {
     }
 
     @CrossOrigin
+    @GetMapping("/scores/{id}")
+    public EntityModel<Score> getScoreById(@PathVariable Long id){
+        return scoreService.getScoreById(id);
+    }
+
+    @CrossOrigin
     @GetMapping("/scores/{id}/game")
     public EntityModel<Game> getScoreGame(@PathVariable Long id){
         return gameService.getGameByScore(id);
@@ -41,9 +47,21 @@ public class ScoreController {
         return userService.getUserByScore(id);
     }
 
-//    @CrossOrigin
-//    @GetMapping("/scores/game/{id}")
-//    public CollectionModel<EntityModel<Score>> getScoresByGame(@PathVariable Long id){
-//
-//    }
+    @CrossOrigin
+    @PostMapping("/scores/{gameid}/{userid}")
+    public EntityModel<Score> addScore(@RequestBody Score newScore, @PathVariable Long gameid, @PathVariable Long userid){
+        return scoreService.addScore(newScore, gameid, userid);
+    }
+
+    @CrossOrigin
+    @PutMapping("/scores/{id}")
+    public EntityModel<Score> updateScore(@RequestBody Score newScore, @PathVariable Long id){
+        return scoreService.updateScore(newScore, id);
+    }
+
+    @CrossOrigin
+    @DeleteMapping("/scores/{id}")
+    public void deleteScore(@PathVariable Long id){
+        scoreService.deleteScore(id);
+    }
 }
