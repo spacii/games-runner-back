@@ -52,38 +52,38 @@ public class ScoreService {
         );
     }
 
-    public EntityModel<Score> getScoreById(Long id){
-        Score score = scoreRepository.findById(id).orElseThrow(() -> new NotFoundException("score", id));
+    public EntityModel<Score> getScoreById(Long scoreId){
+        Score score = scoreRepository.findById(scoreId).orElseThrow(() -> new NotFoundException("score", scoreId));
         return scoreModelAssembler.toModel(score);
     }
 
-    public CollectionModel<EntityModel<Score>> getScoresByGameId(Long id){
-        List<EntityModel<Score>> scores = scoreRepository.findAllByGameGameId(id)
+    public CollectionModel<EntityModel<Score>> getScoresByGameId(Long gameId){
+        List<EntityModel<Score>> scores = scoreRepository.findAllByGameGameId(gameId)
                 .stream()
                 .map(scoreModelAssembler::toModel)
                 .collect(Collectors.toList());
 
         return CollectionModel.of(
                 scores,
-                linkTo(methodOn(GameController.class).getGameScores(id)).withSelfRel()
+                linkTo(methodOn(GameController.class).getGameScores(gameId)).withSelfRel()
         );
     }
 
-    public CollectionModel<EntityModel<Score>> getScoresByUserId(Long id){
-        List<EntityModel<Score>> scores = scoreRepository.findAllByUserUserId(id)
+    public CollectionModel<EntityModel<Score>> getScoresByUserId(Long userId){
+        List<EntityModel<Score>> scores = scoreRepository.findAllByUserUserId(userId)
                 .stream()
                 .map(scoreModelAssembler::toModel)
                 .collect(Collectors.toList());
 
         return CollectionModel.of(
                 scores,
-                linkTo(methodOn(UserController.class).getUserScores(id)).withSelfRel()
+                linkTo(methodOn(UserController.class).getUserScores(userId)).withSelfRel()
         );
     }
 
-    public EntityModel<Score> addScore(Score newScore, Long gameid, Long userid){
-        Game game = gameRepository.findById(gameid).orElseThrow(() -> new NotFoundException("game", gameid));
-        User user = userRepository.findById(userid).orElseThrow(() -> new NotFoundException("user", userid));
+    public EntityModel<Score> addScore(Score newScore, Long gameId, Long userId){
+        Game game = gameRepository.findById(gameId).orElseThrow(() -> new NotFoundException("game", gameId));
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user", userId));
 
         newScore.setGame(game);
         newScore.setUser(user);
@@ -92,19 +92,14 @@ public class ScoreService {
         return scoreModelAssembler.toModel(score);
     }
 
-    public EntityModel<Score> updateScore(Score newScore, Long id){
-        Score score = scoreRepository.findById(id).orElseThrow(() -> new NotFoundException("score", id));
+    public EntityModel<Score> updateScore(Score newScore, Long scoreId){
+        Score score = scoreRepository.findById(scoreId).orElseThrow(() -> new NotFoundException("score", scoreId));
         score.setScore(newScore.getScore());
 
         return scoreModelAssembler.toModel(scoreRepository.save(score));
     }
 
-    public void deleteScore(Long id){
-        Score score = scoreRepository.findById(id).orElseThrow(() -> new NotFoundException("score", id));
-        scoreRepository.delete(score);
-
-        Review review = reviewRepository.findByGameGameIdAndUserUserId(score.getGame().getGameId(), score.getUser().getUserId())
-                .orElseThrow(() -> new NotFoundException("ff", id)); // TODO
-        reviewRepository.delete(review);
+    public void deleteScore(Long scoreId){
+        scoreRepository.deleteById(scoreId);
     }
 }

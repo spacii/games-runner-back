@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,25 +57,32 @@ public class ReviewService {
         return reviewModelAssembler.toModel(review);
     }
 
-    public EntityModel<Review> addReview(Review newReview, Long gameid, Long userid){
-        Score score = scoreRepository.findByGameGameIdAndUserUserId(gameid, userid).orElseThrow(() -> new NotFoundException("NO SCORE", gameid)); // TODO
-        Game game = gameRepository.findById(gameid).orElseThrow(() -> new NotFoundException("game", gameid));
-        User user = userRepository.findById(userid).orElseThrow(() -> new NotFoundException("user", userid));
-
-        newReview.setGame(game);
-        newReview.setUser(user);
-
+    public EntityModel<Review> addReview(Review newReview, Long scoreId){
+        Score score = scoreRepository.findById(scoreId).orElseThrow(() -> new NotFoundException("score", scoreId));
+        newReview.setScore(score);
         return reviewModelAssembler.toModel(reviewRepository.save(newReview));
     }
 
-    public EntityModel<Review> updateReview(Review newReview, Long id){
-        Review review = reviewRepository.findById(id).orElseThrow(() -> new NotFoundException("review", id));
+    public EntityModel<Review> updateReview(Review newReview, Long reviewId){
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new NotFoundException("review", reviewId));
         review.setReviewText(newReview.getReviewText());
 
         return reviewModelAssembler.toModel(reviewRepository.save(review));
     }
 
-    public void deleteReview(Long id){
-        reviewRepository.deleteById(id);
+    public void deleteReview(Long reviewId){
+        reviewRepository.deleteById(reviewId);
+    }
+
+    public CollectionModel<EntityModel<Review>> getReviewsByGameId(Long gameId){
+        List<EntityModel<Review>> reviews = reviewRepository.findAllByScoreGameGameId(gameId)
+                .stream()
+                .map(reviewModelAssembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(
+                reviews,
+                linkTo(methodOn(ReviewController.class).getReviews()).withSelfRel()
+        );
     }
 }

@@ -16,8 +16,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Score> scores;
 
-    @OneToMany(mappedBy = "user")
-    private List<Review> reviews;
+//    @OneToMany(mappedBy = "user")
+//    private List<Review> reviews;
 
     public User(){}
 
@@ -68,11 +68,11 @@ public class User {
         this.scores = scores;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
+//    public List<Review> getReviews() {
+//        return reviews;
+//    }
+//
+//    public void setReviews(List<Review> reviews) {
+//        this.reviews = reviews;
+//    }
 }

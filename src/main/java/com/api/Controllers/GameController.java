@@ -33,6 +33,9 @@ public class GameController {
     @Autowired
     ScoreService scoreService;
 
+    @Autowired
+    ReviewService reviewService;
+
     @CrossOrigin
     @GetMapping("/games")
     public CollectionModel<EntityModel<Game>> getGames(){
@@ -88,8 +91,14 @@ public class GameController {
     }
 
     @CrossOrigin
-    @GetMapping("/game/{id}/scores")
+    @GetMapping("/games/{id}/scores")
     public CollectionModel<EntityModel<Score>> getGameScores(@PathVariable Long id){
         return scoreService.getScoresByGameId(id);
+    }
+
+    @CrossOrigin
+    @GetMapping("/games/{gameId}/reviews")
+    public CollectionModel<EntityModel<Review>> getGameReviews(@PathVariable Long gameId){
+        return reviewService.getReviewsByGameId(gameId);
     }
 }

@@ -49,4 +49,9 @@ public class UserService {
         User user = userRepository.findByScoresScoreId(id);
         return userModelAssembler.toModel(user);
     }
+
+    public EntityModel<User> getUserByReviewId(Long reviewId){
+        User user = userRepository.findByScoresReviewReviewId(reviewId);
+        return userModelAssembler.toModel(user);
+    }
 }

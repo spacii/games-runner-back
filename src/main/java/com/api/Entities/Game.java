@@ -67,13 +67,9 @@ public class Game {
     @JoinColumn(name = "game_franchise_id")
     private Franchise franchise;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "game")
-//    @OneToMany
-//    @JoinColumn(name = "game_id", referencedColumnName = "game_id")
     private List<Score> scores;
-
-    @OneToMany(mappedBy = "game")
-    private List<Review> reviews;
 
     public Game() {
     }
@@ -205,13 +201,5 @@ public class Game {
 
     public void setScores(List<Score> scores) {
         this.scores = scores;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
     }
 }

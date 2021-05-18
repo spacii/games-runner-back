@@ -1,7 +1,9 @@
 package com.api.Controllers;
 
 import com.api.Entities.Review;
+import com.api.Entities.User;
 import com.api.Services.ReviewService;
+import com.api.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ReviewController {
     @Autowired
-    ReviewService reviewService;
+    private ReviewService reviewService;
+
+    @Autowired
+    private UserService userService;
 
     @CrossOrigin
     @GetMapping("/reviews")
@@ -26,20 +31,26 @@ public class ReviewController {
     }
 
     @CrossOrigin
-    @PostMapping("/reviews/{gameid}/{userid}")
-    public EntityModel<Review> addReview(@RequestBody Review newReview, @PathVariable Long gameid, @PathVariable Long userid){
-        return reviewService.addReview(newReview, gameid, userid);
+    @PostMapping("/reviews")
+    public EntityModel<Review> addReview(@RequestBody Review newReview, @RequestParam Long scoreId){
+        return reviewService.addReview(newReview, scoreId);
     }
 
     @CrossOrigin
-    @PutMapping("/reviews/{id}")
-    public EntityModel<Review> updateReview(@RequestBody Review newReview, @PathVariable Long id){
-        return reviewService.updateReview(newReview, id);
+    @PutMapping("/reviews/{reviewId}")
+    public EntityModel<Review> updateReview(@RequestBody Review newReview, @PathVariable Long reviewId){
+        return reviewService.updateReview(newReview, reviewId);
     }
 
     @CrossOrigin
-    @DeleteMapping("/reviews/{id}")
-    public void deleteReview(@PathVariable Long id){
-        reviewService.deleteReview(id);
+    @DeleteMapping("/reviews/{reviewId}")
+    public void deleteReview(@PathVariable Long reviewId){
+        reviewService.deleteReview(reviewId);
+    }
+
+    @CrossOrigin
+    @GetMapping("/reviews/{reviewId}/user")
+    public EntityModel<User> getReviewUser(@PathVariable Long reviewId){
+        return userService.getUserByReviewId(reviewId);
     }
 }

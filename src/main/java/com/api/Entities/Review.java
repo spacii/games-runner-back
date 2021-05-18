@@ -12,15 +12,9 @@ public class Review {
     private Long reviewId;
     private String reviewText;
 
-    @ManyToOne
-    @JoinColumn(name = "game_id")
-    @JsonIgnore
-    private Game game;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
+    @OneToOne
+    @JoinColumn(name = "score_id")
+    private Score score;
 
     public Review(){}
 
@@ -45,19 +39,11 @@ public class Review {
         this.reviewText = reviewText;
     }
 
-    public Game getGame() {
-        return game;
+    public Score getScore() {
+        return score;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setScore(Score score) {
+        this.score = score;
     }
 }

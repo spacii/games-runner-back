@@ -1,5 +1,6 @@
 package com.api.ModelAssemblers;
 
+import com.api.Controllers.ReviewController;
 import com.api.Entities.Review;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -13,7 +14,8 @@ public class ReviewModelAssembler implements RepresentationModelAssembler<Review
     @Override
     public EntityModel<Review> toModel(Review review) {
         return EntityModel.of(
-                review//
+                review,
+                linkTo(methodOn(ReviewController.class).getReviewUser(review.getReviewId())).withRel("user")
         );
     }
 }

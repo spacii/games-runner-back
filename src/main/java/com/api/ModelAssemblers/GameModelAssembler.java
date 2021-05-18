@@ -37,7 +37,8 @@ public class GameModelAssembler implements RepresentationModelAssembler<Game, En
                 linkTo(methodOn(GameController.class).getGamePoster(game.getGameId())).withRel("poster"),
                 linkTo(methodOn(GameController.class).getGameFranchise(game.getGameId())).withRel("franchise"),
                 linkTo(methodOn(GameController.class).getGamePersons(game.getGameId())).withRel("persons"),
-                linkTo(methodOn(GameController.class).getGameScores(game.getGameId())).withRel("scores")
+                linkTo(methodOn(GameController.class).getGameScores(game.getGameId())).withRel("scores"),
+                linkTo(methodOn(GameController.class).getGameReviews(game.getGameId())).withRel("reviews")
         );
     }
 }

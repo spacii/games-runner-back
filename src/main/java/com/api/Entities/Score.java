@@ -11,11 +11,6 @@ public class Score {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scoreId;
 
-//    @Column(name = "game_id")
-//    private Long gameId;
-
-//    @Column(name = "user_id")
-//    private Long userId;
     private Integer score;
 
     @ManyToOne
@@ -27,6 +22,9 @@ public class Score {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @OneToOne(mappedBy = "score", cascade=CascadeType.REMOVE)
+    private Review review;
 
     public Score(){}
 

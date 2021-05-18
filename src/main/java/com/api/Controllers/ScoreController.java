@@ -1,9 +1,11 @@
 package com.api.Controllers;
 
 import com.api.Entities.Game;
+import com.api.Entities.Review;
 import com.api.Entities.Score;
 import com.api.Entities.User;
 import com.api.Services.GameService;
+import com.api.Services.ReviewService;
 import com.api.Services.ScoreService;
 import com.api.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ScoreController {
     @Autowired
-    ScoreService scoreService;
+    private ScoreService scoreService;
 
     @Autowired
-    GameService gameService;
+    private GameService gameService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @CrossOrigin
     @GetMapping("/scores")
@@ -30,38 +35,44 @@ public class ScoreController {
     }
 
     @CrossOrigin
-    @GetMapping("/scores/{id}")
-    public EntityModel<Score> getScoreById(@PathVariable Long id){
-        return scoreService.getScoreById(id);
+    @GetMapping("/scores/{scoreId}")
+    public EntityModel<Score> getScoreById(@PathVariable Long scoreId){
+        return scoreService.getScoreById(scoreId);
     }
 
     @CrossOrigin
-    @GetMapping("/scores/{id}/game")
-    public EntityModel<Game> getScoreGame(@PathVariable Long id){
-        return gameService.getGameByScore(id);
+    @GetMapping("/scores/{scoreId}/game")
+    public EntityModel<Game> getScoreGame(@PathVariable Long scoreId){
+        return gameService.getGameByScore(scoreId);
     }
 
     @CrossOrigin
-    @GetMapping("/scores/{id}/user")
-    public EntityModel<User> getScoreUser(@PathVariable Long id) {
-        return userService.getUserByScore(id);
+    @GetMapping("/scores/{scoreId}/user")
+    public EntityModel<User> getScoreUser(@PathVariable Long scoreId) {
+        return userService.getUserByScore(scoreId);
     }
 
     @CrossOrigin
-    @PostMapping("/scores/{gameid}/{userid}")
-    public EntityModel<Score> addScore(@RequestBody Score newScore, @PathVariable Long gameid, @PathVariable Long userid){
-        return scoreService.addScore(newScore, gameid, userid);
+    @PostMapping("/scores")
+    public EntityModel<Score> addScore(@RequestBody Score newScore, @RequestParam Long gameId, @RequestParam Long userId){
+        return scoreService.addScore(newScore, gameId, userId);
     }
 
     @CrossOrigin
-    @PutMapping("/scores/{id}")
-    public EntityModel<Score> updateScore(@RequestBody Score newScore, @PathVariable Long id){
-        return scoreService.updateScore(newScore, id);
+    @PutMapping("/scores/{scoreId}")
+    public EntityModel<Score> updateScore(@RequestBody Score newScore, @PathVariable Long scoreId){
+        return scoreService.updateScore(newScore, scoreId);
     }
 
     @CrossOrigin
-    @DeleteMapping("/scores/{id}")
-    public void deleteScore(@PathVariable Long id){
-        scoreService.deleteScore(id);
+    @DeleteMapping("/scores/{scoreId}")
+    public void deleteScore(@PathVariable Long scoreId){
+        scoreService.deleteScore(scoreId);
+    }
+
+    @CrossOrigin
+    @PostMapping("/scores/{scoreId}/review")
+    public EntityModel<Review> addReview(@RequestBody Review newReview, @PathVariable Long scoreId){
+        return reviewService.addReview(newReview, scoreId);
     }
 }
