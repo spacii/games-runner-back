@@ -19,6 +19,8 @@ public class Game {
     private String age;
     @Transient
     private Float rating;
+    @Transient
+    private Integer ratingCounts;
 
     //@JsonManagedReference
     @JsonIgnore
@@ -201,5 +203,13 @@ public class Game {
 
     public void setScores(List<Score> scores) {
         this.scores = scores;
+    }
+
+    public Integer getRatingCounts() {
+        return ratingCounts;
+    }
+
+    public void setRatingCounts(Integer ratingCounts) {
+        this.ratingCounts = ratingCounts;
     }
 }

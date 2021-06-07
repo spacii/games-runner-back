@@ -9,4 +9,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByScoresScoreId(Long id);
     User findByScoresReviewReviewId(Long reviewId);
+
+    User findByUserEmail(String userEmail);
+    User findByUserLogin(String userLogin);
 }

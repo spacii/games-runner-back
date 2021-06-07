@@ -32,6 +32,12 @@ public class UserController {
     }
 
     @CrossOrigin
+    @GetMapping("/users/{login}/{password}")
+    public EntityModel<User> getUserByEntity(@PathVariable String login, @PathVariable String password){
+        return userService.getUserByEntity(login, password);
+    }
+
+    @CrossOrigin
     @PostMapping("/users")
     public EntityModel<User> addUser(@RequestBody User newUser){
         return userService.addUser(newUser);

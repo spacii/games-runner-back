@@ -41,8 +41,24 @@ public class UserService {
     }
 
     public EntityModel<User> addUser(User newUser){
-        User user = userRepository.save(newUser);
-        return  userModelAssembler.toModel(user);
+        User user = userRepository.findByUserEmail(newUser.getUserEmail());
+
+        if(user == null){
+            User createdUser = userRepository.save(newUser);
+            return  userModelAssembler.toModel(createdUser);
+        } else {
+            throw new NotFoundException("creation", 0L);
+        }
+    }
+
+    public EntityModel<User> getUserByEntity(String login, String password){
+        User user = userRepository.findByUserLogin(login);
+
+        if(user != null && user.getUserPassword().equals(password)){
+            return userModelAssembler.toModel(user);
+        } else {
+            throw new NotFoundException("creation", 0L);
+        }
     }
 
     public EntityModel<User> getUserByScore(Long id){

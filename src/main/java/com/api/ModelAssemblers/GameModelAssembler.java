@@ -21,10 +21,8 @@ public class GameModelAssembler implements RepresentationModelAssembler<Game, En
 
     @Override
     public EntityModel<Game> toModel(Game game) {
-        ArrayList<Integer> temp = new ArrayList<Integer>(Arrays.asList(7, 6, 8, 5, 8, 7, 8, 9));
-        float t = ratingCounter.getRating(temp);
-
-        game.setRating(t);
+        game.setRating(ratingCounter.getRating(game.getScores()));
+        game.setRatingCounts(game.getScores().size());
 
         return EntityModel.of(
                 game,
